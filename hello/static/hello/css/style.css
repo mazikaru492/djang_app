@@ -1,23 +1,18 @@
-body {
-    color: grey;
-    font-size: 16pt;
+table {
+    margin:10px;
+    font-size:14pt;
 }
 
-h1{
-    color: orange;
-    opacity: 0.8;
-    font-family: "Arial";
-    font-size: 60pt;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    text-align: right;
+table tr th {
+    background-color:#009;
+    color:white;
+    padding:2px 10px;
+    border-width:2px;
 }
 
-p {
-    margin: 10px;
-}
-
-a {
-    color: blue;
-    text-decoration: none;
+table tr td {
+    background-color:#eee;
+    color:#666;
+    padding:2px 10px;
+    border-width:2px;
 }

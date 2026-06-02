@@ -2,9 +2,4 @@ from django import forms
 
 
 class HelloForm(forms.Form):
-    data = [
-        ('one', 'item 1'),
-        ('two', 'item 2'),
-        ('three', 'item 3')
-    ]
-    choice = forms.ChoiceField(label='Choose', choices=data)
+    id = forms.IntegerField(label='ID')
