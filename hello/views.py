@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Friend
 from django.db.models import QuerySet
-from .forms import HelloForm
+from .forms import FriendForm
+
 
 
 def index(request):
@@ -14,17 +15,13 @@ def index(request):
     return render(request, 'hello/index.html', params)
 #crate model
 def create(request):
+    if (request.method == 'POST'):
+        obj = Friend()
+        friend = FriendForm(request.POST, instance=obj)
+        friend.save()
+        return redirect(to='index')
     params = {
         'title': 'Hello',
-        'form': HelloForm(),
+        'form': FriendForm(),
     }
-    if (request.method == 'POST'):
-        name = request.POST.get('name')
-        mail = request.POST.get('mail')
-        gender = 'gender' in request.POST
-        age = int(request.POST.get('age'))
-        birth = request.POST.get('birthday')
-        dirth = Friend(name=name, mail=mail, gender=gender, age=age, birthday=birth)
-        dirth.save()
-        return redirect('/hello')
     return render(request, 'hello/create.html', params)
