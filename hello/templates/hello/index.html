@@ -15,11 +15,15 @@
     <table>
         <tr>
             <th>data</th>
+            <th></th>
+            <th></th>
         </tr>
-        {% for d in data %}
+        {% for item in data %}
         <tr>
-            <td>{{d}}</td>
-        </tr>
+            <td>{{item}}</td>
+            <td><a href="{% url 'edit' item.id %}">Edit</a></td>
+            <td><a href="{% url 'delete' item.id %}">Delete</a></td>
+        <tr>
         {% endfor %}
     </table>
   </body>
