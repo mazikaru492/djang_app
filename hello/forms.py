@@ -10,4 +10,10 @@ class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False)
 
 class CheckForm(forms.Form):
-    name = forms.CharField(label='Name')
+    str = forms.CharField(label='String')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        str = cleaned_data['str']
+        if (str.lower().startswith('no')):
+            raise forms.ValidationError('You input "NO"!')
