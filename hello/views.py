@@ -65,13 +65,13 @@ def delete(request, num):
 
 def find(request):
     if (request.method == 'POST'):
-        msg = 'search result:'
+        msg = request.POST['find']
         form = FindForm(request.POST)
-        str = request.POST['find']
-        list = str.split()
-        start = int(list[0]) if len(list) >= 1 else None
-        end = int(list[1]) if len(list) >= 2 else None
-        data = Friend.objects.all()[start:end]
+        sql = 'select * from hello_friend'
+        if (msg != ''):
+            sql += ' where ' + msg
+        data = Friend.objects.raw(sql)
+        msg = sql
     else:
         msg = 'search words...'
         form = FindForm()
