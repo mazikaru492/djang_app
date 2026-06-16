@@ -1,0 +1,5 @@
+cd django_app
+
+
+python manage.py runserver
+
