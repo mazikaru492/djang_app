@@ -8,3 +8,6 @@ class FriendForm(forms.ModelForm):
 
 class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False)
+
+class CheckForm(forms.Form):
+    name = forms.CharField(label='Name')
