@@ -5,6 +5,7 @@ from django.db.models import QuerySet
 from .forms import FriendForm, FindForm
 from django.db.models import Q
 from django.db.models import Count,Sum,Avg,Min,Max
+from .forms import CheckForm
 
 
 def index(request):
@@ -83,3 +84,18 @@ def find(request):
         'data': data,
     }
     return render(request, 'hello/find.html', params)
+
+
+def check(request):
+    params = {
+        'title': 'Hello',
+        'message': 'check validation',
+        'form': CheckForm(),
+    }
+    if (request.method == 'POST'):
+        form = CheckForm(request.POST)
+        if (form.is_valid()):
+            params['form'] = form
+            if(form.is_valid()):
+                params['message'] = 'OK'
+    return render(request, 'hello/check.html', params)
