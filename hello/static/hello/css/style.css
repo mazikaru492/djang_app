@@ -40,3 +40,27 @@ a {
     color: blue;
     text-decoration: none;
 }
+
+label {
+    background-color: #009;
+    color: #fff;
+    padding: 8px 14px;
+    display: inline-block;
+    min-width: 100px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 6px;
+    font-size: 14pt;
+    margin-left: 10px;
+}
+
+input[type="submit"] {
+    padding: 6px 14px;
+    background-color: #eee;
+    color: #666;
+    font-size: 14pt;
+    margin-top: 10px;
+    cursor: pointer;
+}

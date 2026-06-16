@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Friend
 from django.db.models import QuerySet
 from .forms import FriendForm, FindForm
-
+from django.db.models import Q
 
 
 def index(request):
@@ -56,7 +56,8 @@ def find(request):
         msg = 'search result:'
         form = FindForm(request.POST)
         str = request.POST['find']
-        data = Friend.objects.filter(age__lte=int(str))
+        list = str.split()
+        data = Friend.objects.filter(name__in=list)
     else:
         msg = 'search words...'
         form = FindForm()
