@@ -10,6 +10,7 @@ def index(request):
     data = Friend.objects.all()
     params = {
         'title': 'Hello',
+        'message': '',
         'data': data,
     }
     return render(request, 'hello/index.html', params)
