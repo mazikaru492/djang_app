@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Friend
+from .models import Friend, Message
 from django.db.models import QuerySet
-from .forms import FriendForm, FindForm
+from .forms import FriendForm, FindForm, MessageForm
 from django.db.models import Q
 from django.db.models import Count,Sum,Avg,Min,Max
 from django.core.paginator import Paginator
@@ -76,6 +76,20 @@ def find(request):
     }
     return render(request, 'hello/find.html', params)
 
+
+def message(request, page=1):
+    if (request.method == 'POST'):
+        obj = Message()
+        form = MessageForm(request.POST, instance=obj)
+        form.save()
+    data = Message.objects.all().reverse()
+    paginator = Paginator(data, 5)
+    params = {
+        'title': 'Message',
+        'form': MessageForm(),
+        'data': paginator.get_page(page),
+    }
+    return render(request, 'hello/message.html', params)
 
 def check(request):
     params = {

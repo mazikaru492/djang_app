@@ -1,5 +1,10 @@
 from django import forms
-from.models import Friend
+from .models import Friend, Message
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['title', 'content', 'friend']
 
 class FriendForm(forms.ModelForm):
     class Meta:
