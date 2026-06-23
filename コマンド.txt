@@ -1,4 +1,4 @@
-cd django_app
+cd djang_app
 
 
 python manage.py runserver
