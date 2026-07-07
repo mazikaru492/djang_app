@@ -8,5 +8,5 @@ urlpatterns = [
     path('creategroup', views.creategroup, name='creategroup'),
     path('post',views.post,name='post'),
     path('share/<int:share_id>/', views.share, name='share'),
-    path('good/<int:message_id>/', views.good, name='good'),
+    path('good/<int:good_id>/', views.good, name='good'),
 ]
