@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>削除確認</title>
+	<link rel="stylesheet" href="{% static 'book/css/style.css' %}">
+</head>
+<body>
+	<div class="container">
+		<h1>削除確認</h1>
+		<p>{{ book.タイトル }} を削除しますか？</p>
+		<form method="post">
+			{% csrf_token %}
+			<button type="submit">削除</button>
+			<a href="{% url 'index' %}">キャンセル</a>
+		</form>
+	</div>
+</body>
+</html>
