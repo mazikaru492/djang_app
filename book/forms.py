@@ -13,3 +13,9 @@ class BookForm(forms.ModelForm):
 		widgets = {
 			"pub_date": forms.DateInput(attrs={"type": "date"}),
 		}
+
+	def clean_price(self):
+		price = self.cleaned_data.get("price")
+		if price < 0:
+			raise forms.ValidationError("価格は0円以上で入力してください")
+		return price

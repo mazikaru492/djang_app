@@ -10,7 +10,7 @@
 <body>
 	<div class="container">
 		<h1>削除確認</h1>
-		<p>{{ book.タイトル }} を削除しますか？</p>
+		<p>{{ book.title }} を削除しますか？</p>
 		<form method="post">
 			{% csrf_token %}
 			<button type="submit">削除</button>
