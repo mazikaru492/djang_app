@@ -23,5 +23,4 @@ urlpatterns = [
     path("hello/", include("hello.urls")),
     path("sns/", include("sns.urls")),
     path("book/", include("book.urls")),
-    path("syllabus/", include("syllabus.urls")),
 ]
