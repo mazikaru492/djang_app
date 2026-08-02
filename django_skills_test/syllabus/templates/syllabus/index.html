@@ -11,13 +11,10 @@
     <h1>{{title}}</h1>
     <p>{{message|safe}}</p>
 
-    <form action="{% url 'syllabus:index' %}" method="post">
-      {% csrf_token %}
-      {{form.as_p}}
-      <input type="submit" value="click">
+    <form action="{% url 'syllabus:index' %}" method="get">
+      <input type="text" name="keyword" value="{{ keyword }}" placeholder="講義名または教員名を入力">
+      <input type="submit" value="検索">
     </form>
-
-    <hr>
     <table border="1">
       <tr>
         <th>id</th>
@@ -42,27 +39,19 @@
       </tr>
       {% empty %}
       <tr>
-        <td colspan="8">データがありません。</td>
+        <td colspan="8">該当する講義が見つかりませんでした。</td>
       </tr>
       {% endfor %}
     </table>
-
-
-
-
-
-    <br>
     <div>
       {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; 最初</a>
-        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+        <a href="?page=1&keyword={{ keyword }}">&laquo; 最初</a>
+        <a href="?page={{ page_obj.previous_page_number }}&keyword={{ keyword }}">前へ</a>
       {% endif %}
-
       <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }} ページ</span>
-
       {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">最後 &raquo;</a>
+        <a href="?page={{ page_obj.next_page_number }}&keyword={{ keyword }}">次へ</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}&keyword={{ keyword }}">最後 &raquo;</a>
       {% endif %}
     </div>
   </body>
