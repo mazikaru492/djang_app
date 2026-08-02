@@ -1,13 +1,69 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>シラバス一覧</title>
-    <link rel="stylesheet" href="{% static 'syllabus/css/style.css' %}">
-</head>
-<body>
-    <h1>シラバスシステム</h1>
-    <p>ここに画面の内容が入ります。</p>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css"
+        href="{% static 'syllabus/css/style.css' %}" />
+  </head>
+  <body>
+    <h1>{{title}}</h1>
+    <p>{{message|safe}}</p>
+
+    <form action="{% url 'syllabus:index' %}" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="click">
+    </form>
+
+    <hr>
+    <table border="1">
+      <tr>
+        <th>id</th>
+        <th>講義名</th>
+        <th>担当教員</th>
+        <th>学部</th>
+        <th>テスト割合</th>
+        <th>レポート割合</th>
+        <th>編集</th>
+        <th>削除</th>
+      </tr>
+      {% for item in page_obj %}
+      <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.teacher}}</td>
+        <td>{{item.department.name}}</td>
+        <td>{{item.exam_ratio}}%</td>
+        <td>{{item.report_ratio}}%</td>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="8">データがありません。</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+
+
+
+
+    <br>
+    <div>
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; 最初</a>
+        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+      {% endif %}
+
+      <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }} ページ</span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">最後 &raquo;</a>
+      {% endif %}
+    </div>
+  </body>
 </html>
