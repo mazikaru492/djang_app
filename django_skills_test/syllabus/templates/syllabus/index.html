@@ -27,6 +27,23 @@
         <th>削除</th>
       </tr>
       {% for item in page_obj %}
+
+
+<tr>
+    <td>{{ item.id }}</td>
+    <!-- 講義名に詳細画面へのリンクを設置 -->
+        <td><a href="{% url 'syllabus:detail' item.id %}">{{ item.title }}</a></td>
+        <td>{{ item.teacher }}</td>
+        <td>{{ item.department.name }}</td>
+        <td>{{ item.exam_ratio }}%</td>
+        <td>{{ item.report_ratio }}%</td>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+</tr>
+{% endfor %}
+
+
+      {% for item in page_obj %}
       <tr>
         <td>{{item.id}}</td>
         <td>{{item.title}}</td>

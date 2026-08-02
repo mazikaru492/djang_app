@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css"
+        href="{% static 'syllabus/css/style.css' %}" />
+  </head>
+  <body>
+    <h1>{{ course.title }}</h1>
+    <p><strong>学部・学科:</strong> {{ course.department.name }}</p>
+    <p><strong>担当教員:</strong> {{ course.teacher }}</p>
+
+    <hr>
+
+    <h3>講義概要</h3>
+    <p>{{ course.description|linebreaksbr }}</p>
+
+    <hr>
+
+    <h3>評価割合</h3>
+    <ul>
+      <li>テスト評価割合: {{ course.exam_ratio }}%</li>
+      <li>レポート評価割合: {{ course.report_ratio }}%</li>
+    </ul>
+
+    <br>
+    <a href="{% url 'syllabus:index' %}">← 一覧に戻る</a>
+  </body>
+</html>
