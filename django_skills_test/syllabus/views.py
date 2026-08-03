@@ -5,7 +5,6 @@ from .models import Course
 
 def index(request):
     keyword = request.GET.get('keyword', '')
-
     if keyword:
         course_list = Course.objects.filter(
             Q(title__icontains=keyword) | Q(teacher__icontains=keyword)
@@ -28,10 +27,8 @@ def index(request):
 
 def detail(request, id):
     course = get_object_or_404(Course, id=id)
-
     context = {
         'title': '講義詳細（シラバス）',
         'course': course,
     }
-
     return render(request, 'syllabus/detail.html', context)

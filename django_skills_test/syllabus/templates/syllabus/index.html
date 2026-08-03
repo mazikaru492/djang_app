@@ -3,18 +3,23 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" type="text/css"
         href="{% static 'syllabus/css/style.css' %}" />
   </head>
   <body>
-    <h1>{{title}}</h1>
-    <p>{{message|safe}}</p>
+    <h1>{{ title }}</h1>
+    <p>{{ message|safe }}</p>
 
+    <!-- あいまい検索フォーム（要件9） -->
     <form action="{% url 'syllabus:index' %}" method="get">
       <input type="text" name="keyword" value="{{ keyword }}" placeholder="講義名または教員名を入力">
       <input type="submit" value="検索">
     </form>
+
+    <hr>
+
+    <!-- 講義一覧テーブル（要件7 & 要件10） -->
     <table border="1">
       <tr>
         <th>id</th>
@@ -27,30 +32,14 @@
         <th>削除</th>
       </tr>
       {% for item in page_obj %}
-
-
-<tr>
-    <td>{{ item.id }}</td>
-    <!-- 講義名に詳細画面へのリンクを設置 -->
+      <tr>
+        <td>{{ item.id }}</td>
+        <!-- 講義名をクリックすると詳細画面へ遷移（要件10） -->
         <td><a href="{% url 'syllabus:detail' item.id %}">{{ item.title }}</a></td>
         <td>{{ item.teacher }}</td>
         <td>{{ item.department.name }}</td>
         <td>{{ item.exam_ratio }}%</td>
         <td>{{ item.report_ratio }}%</td>
-        <td><a href="#">Edit</a></td>
-        <td><a href="#">Delete</a></td>
-</tr>
-{% endfor %}
-
-
-      {% for item in page_obj %}
-      <tr>
-        <td>{{item.id}}</td>
-        <td>{{item.title}}</td>
-        <td>{{item.teacher}}</td>
-        <td>{{item.department.name}}</td>
-        <td>{{item.exam_ratio}}%</td>
-        <td>{{item.report_ratio}}%</td>
         <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
       </tr>
@@ -60,12 +49,18 @@
       </tr>
       {% endfor %}
     </table>
+
+    <br>
+
+    <!-- ページネーション（要件8） -->
     <div>
       {% if page_obj.has_previous %}
         <a href="?page=1&keyword={{ keyword }}">&laquo; 最初</a>
         <a href="?page={{ page_obj.previous_page_number }}&keyword={{ keyword }}">前へ</a>
       {% endif %}
+
       <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }} ページ</span>
+
       {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}&keyword={{ keyword }}">次へ</a>
         <a href="?page={{ page_obj.paginator.num_pages }}&keyword={{ keyword }}">最後 &raquo;</a>
