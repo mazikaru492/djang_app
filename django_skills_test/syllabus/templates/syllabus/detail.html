@@ -25,6 +25,20 @@
       <li>レポート評価割合: {{ course.report_ratio }}%</li>
     </ul>
 
+    <hr>
+
+    <h3>口コミ一覧</h3>
+
+    {% for review in reviews %}
+      <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+        <p><strong>評価 (星):</strong> {{ review.star }} / 5</p>
+        <p><strong>コメント:</strong><br>{{ review.comment|linebreaksbr }}</p>
+        <p><small>投稿日時: {{ review.created_at|date:"Y-m-d H:i" }}</small></p>
+      </div>
+    {% empty %}
+      <p>まだ口コミはありません。</p>
+    {% endfor %}
+
     <br>
     <a href="{% url 'syllabus:index' %}">← 一覧に戻る</a>
   </body>
