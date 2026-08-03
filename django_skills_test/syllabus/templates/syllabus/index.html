@@ -11,15 +11,16 @@
     <h1>{{ title }}</h1>
     <p>{{ message|safe }}</p>
 
-    <!-- あいまい検索フォーム（要件9） -->
     <form action="{% url 'syllabus:index' %}" method="get">
       <input type="text" name="keyword" value="{{ keyword }}" placeholder="講義名または教員名を入力">
       <input type="submit" value="検索">
     </form>
 
+    <br>
+    <a href="{% url 'syllabus:create' %}">＋ 新規講義を登録する</a>
+
     <hr>
 
-    <!-- 講義一覧テーブル（要件7 & 要件10） -->
     <table border="1">
       <tr>
         <th>id</th>
@@ -34,14 +35,13 @@
       {% for item in page_obj %}
       <tr>
         <td>{{ item.id }}</td>
-        <!-- 講義名をクリックすると詳細画面へ遷移（要件10） -->
         <td><a href="{% url 'syllabus:detail' item.id %}">{{ item.title }}</a></td>
         <td>{{ item.teacher }}</td>
         <td>{{ item.department.name }}</td>
         <td>{{ item.exam_ratio }}%</td>
         <td>{{ item.report_ratio }}%</td>
-        <td><a href="#">Edit</a></td>
-        <td><a href="#">Delete</a></td>
+        <td><a href="{% url 'syllabus:edit' item.id %}">Edit</a></td>
+        <td><a href="{% url 'syllabus:delete' item.id %}">Delete</a></td>
       </tr>
       {% empty %}
       <tr>
@@ -52,7 +52,6 @@
 
     <br>
 
-    <!-- ページネーション（要件8） -->
     <div>
       {% if page_obj.has_previous %}
         <a href="?page=1&keyword={{ keyword }}">&laquo; 最初</a>

@@ -9,11 +9,15 @@
   </head>
   <body>
     <h1>{{ title }}</h1>
+
+    <p>以下の講義を削除してもよろしいですか？</p>
+    <p><strong>{{ course.title }}</strong>（担当: {{ course.teacher }}）</p>
+
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="保存する">
+      <input type="submit" value="はい、削除します">
     </form>
+
     <br>
     <a href="{% url 'syllabus:index' %}">← 一覧に戻る</a>
   </body>
