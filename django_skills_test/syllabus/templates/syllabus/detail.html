@@ -13,22 +13,16 @@
     <p><strong>担当教員:</strong> {{ course.teacher }}</p>
 
     <hr>
-
     <h3>講義概要</h3>
     <p>{{ course.description|linebreaksbr }}</p>
-
     <hr>
-
     <h3>評価割合</h3>
     <ul>
       <li>テスト評価割合: {{ course.exam_ratio }}%</li>
       <li>レポート評価割合: {{ course.report_ratio }}%</li>
     </ul>
-
     <hr>
-
     <h3>口コミ一覧</h3>
-
     {% for review in reviews %}
       <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
         <p><strong>評価 (星):</strong> {{ review.rating }} / 5</p>
@@ -38,16 +32,13 @@
     {% empty %}
       <p>まだ口コミはありません。</p>
     {% endfor %}
-
     <hr>
-
     <h3>口コミを投稿する</h3>
     <form action="{% url 'syllabus:detail' course.id %}" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="投稿する">
     </form>
-
     <br>
     <a href="{% url 'syllabus:index' %}">← 一覧に戻る</a>
   </body>

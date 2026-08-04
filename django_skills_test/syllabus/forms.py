@@ -31,5 +31,4 @@ class CourseForm(forms.ModelForm):
         if exam_ratio is not None and report_ratio is not None:
             if exam_ratio < 0 or report_ratio < 0 or (exam_ratio + report_ratio) > 100:
                 raise forms.ValidationError("評価割合の合計は100%以下（マイナス不可）で設定してください")
-
         return cleaned_data

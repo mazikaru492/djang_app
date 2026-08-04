@@ -12,20 +12,16 @@ def index(request):
         )
     else:
         course_list = Course.objects.all()
-
     paginator = Paginator(course_list, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
     context = {
         'title': '講義シラバス検索',
         'message': '講義名または担当教員名で検索できます。',
         'keyword': keyword,
         'page_obj': page_obj,
     }
-
     return render(request, 'syllabus/index.html', context)
-
 
 def detail(request, id):
     course = get_object_or_404(Course, id=id)
@@ -39,9 +35,7 @@ def detail(request, id):
             return redirect('syllabus:detail', id=course.id)
     else:
         form = ReviewForm()
-
     reviews = course.review_set.all().order_by('-created_at')
-
     context = {
         'title': '講義詳細（シラバス）',
         'course': course,
@@ -49,6 +43,11 @@ def detail(request, id):
         'form': form,
     }
     return render(request, 'syllabus/detail.html', context)
+
+
+
+
+
 
 
 def create(request):
@@ -69,7 +68,6 @@ def create(request):
 
 def edit(request, id):
     course = get_object_or_404(Course, id=id)
-
     if request.method == 'POST':
         form = CourseForm(request.POST, instance=course)
         if form.is_valid():
@@ -87,11 +85,9 @@ def edit(request, id):
 
 def delete(request, id):
     course = get_object_or_404(Course, id=id)
-
     if request.method == 'POST':
         course.delete()
         return redirect('syllabus:index')
-
     context = {
         'title': '講義の削除',
         'course': course,
