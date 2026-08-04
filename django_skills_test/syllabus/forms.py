@@ -9,6 +9,9 @@ class ReviewForm(forms.ModelForm):
             'rating': 'おすすめ度',
             'comment': 'コメント',
         }
+        widgets = {
+            'rating': forms.Select(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+        }
 
 class CourseForm(forms.ModelForm):
     class Meta:
@@ -23,11 +26,11 @@ class CourseForm(forms.ModelForm):
             'report_ratio': 'レポート割合(%)',
         }
 
+
     def clean(self):
         cleaned_data = super().clean()
         exam_ratio = cleaned_data.get('exam_ratio')
         report_ratio = cleaned_data.get('report_ratio')
-
         if exam_ratio is not None and report_ratio is not None:
             if exam_ratio < 0 or report_ratio < 0 or (exam_ratio + report_ratio) > 100:
                 raise forms.ValidationError("評価割合の合計は100%以下（マイナス不可）で設定してください")

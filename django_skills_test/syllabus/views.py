@@ -23,6 +23,9 @@ def index(request):
     }
     return render(request, 'syllabus/index.html', context)
 
+
+
+
 def detail(request, id):
     course = get_object_or_404(Course, id=id)
 
@@ -63,7 +66,9 @@ def create(request):
         'title': '新規講義の登録',
         'form': form,
     }
-    return render(request, 'syllabus/course_form.html', context)
+    return render(request, 'syllabus/form.html', context)
+
+
 
 
 def edit(request, id):
@@ -75,12 +80,12 @@ def edit(request, id):
             return redirect('syllabus:index')
     else:
         form = CourseForm(instance=course)
-
     context = {
         'title': '講義情報の編集',
         'form': form,
     }
-    return render(request, 'syllabus/course_form.html', context)
+    return render(request, 'syllabus/form.html', context)
+
 
 
 def delete(request, id):
@@ -92,4 +97,4 @@ def delete(request, id):
         'title': '講義の削除',
         'course': course,
     }
-    return render(request, 'syllabus/course_confirm_delete.html', context)
+    return render(request, 'syllabus/delete.html', context)
