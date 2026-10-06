@@ -13,6 +13,7 @@ class EmployeeLoginTests(TestCase):
 
     def setUp(self):
         self.login_url = reverse('django_book_store:login')
+        self.index_url = reverse('django_book_store:index')
         self.logout_url = reverse('django_book_store:logout')
 
     def login(self, client=None):
@@ -27,16 +28,23 @@ class EmployeeLoginTests(TestCase):
         session.save()
         old_key = session.session_key
         response = self.login()
-        self.assertRedirects(response, self.login_url)
+        self.assertRedirects(response, self.index_url)
         session = self.client.session
         self.assertNotEqual(session.session_key, old_key)
         self.assertEqual(session['book_store_employee_no'], 'T00001')
         self.assertEqual(session['other_data'], 'keep')
         self.assertNotIn('test1234', str(dict(session)))
-        response = self.client.get(self.login_url)
+        response = self.client.get(self.index_url)
         self.assertContains(response, '試験従業員')
         self.assertContains(response, 'ログインしました。')
         self.assertNotContains(response, 'test1234')
+
+    def test_index_requires_login_and_logout_revokes_access(self):
+        self.assertRedirects(self.client.get(self.index_url), self.login_url)
+        self.login()
+        self.assertRedirects(self.client.get(self.login_url), self.index_url)
+        self.client.post(self.logout_url)
+        self.assertRedirects(self.client.get(self.index_url), self.login_url)
 
     def test_invalid_credentials_have_same_error_and_no_login(self):
         for employee_no, password in [('T00001', 'wrong'), ('T99999', 'test1234')]:
@@ -76,6 +84,7 @@ class EmployeeLoginTests(TestCase):
     def test_deleted_employee_session_returns_to_login(self):
         self.login()
         Employee.objects.filter(employee_no='T00001').delete()
+        self.assertRedirects(self.client.get(self.index_url), self.login_url)
         response = self.client.get(self.login_url)
         self.assertNotContains(response, 'ログインしました。')
         self.assertNotIn('book_store_employee_no', self.client.session)

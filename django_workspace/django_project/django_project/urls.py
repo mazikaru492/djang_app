@@ -17,7 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from django_book_store.views import login_screen
+
 urlpatterns = [
+    path('login/', login_screen, name='login'),
     path('admin/', admin.site.urls),
     path('django_book_store/', include('django_book_store.urls')),
 ]

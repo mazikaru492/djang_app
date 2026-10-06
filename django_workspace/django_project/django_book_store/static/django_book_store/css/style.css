@@ -1,0 +1,9 @@
+body {
+    margin: 24px;
+    font-family: sans-serif;
+}
+
+input {
+    max-width: 100%;
+    box-sizing: border-box;
+}
