@@ -3,3 +3,6 @@ cd djang_app
 
 python manage.py runserver
 
+django_workspaceのパスワード
+admin
+ktc2026
