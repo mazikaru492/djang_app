@@ -49,10 +49,6 @@ def detail(request, id):
 
 
 
-
-
-
-
 def create(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
